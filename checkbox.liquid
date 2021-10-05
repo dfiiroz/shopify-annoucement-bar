@@ -1,0 +1,33 @@
+<style>
+
+  .myliq {
+    display: block;
+    text-align: center;
+    background: #141313;
+    padding: 10px;
+    color: white;
+    font-size: 16px;
+	}
+  
+</style>
+
+
+
+{% if section.settings.show_announcement %}
+<div class="myliq">Hello World</div>
+{% endif %}
+
+{% schema %}
+{
+	"name": "Announcement Bar",
+	"settings": [
+        {
+          "type": "checkbox",
+          "id": "show_announcement",
+          "label": "Show announcement",
+          "default": false
+        }
+
+	]
+}
+{% endschema %}
