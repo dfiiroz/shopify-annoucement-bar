@@ -1,33 +1,117 @@
 <style>
-
   .myliq {
-    display: block;
-    text-align: center;
-    background: #141313;
-    padding: 10px;
-    color: white;
-    font-size: 16px;
-	}
-  
+    background: {{ section.settings.background }};
+    color: {{ section.settings.font_color }};
+    text-align: {{ section.settings.alignment }};
+    padding: {{ section.settings.bg_padding }}px 0;
+    font-size: {{ section.settings.font_size }}px;
+  }
 </style>
 
-
-
 {% if section.settings.show_announcement %}
-<div class="myliq">Hello World</div>
+
+<div class="myliq">
+
+  {{ section.settings.a_text }}
+   
+</div>
+
 {% endif %}
+
+<div>{{ section.settings.show_html }}</div>
+
+
+
+{% if section.settings.upload_image %}
+
+<div>
+
+  <img src="{{ section.settings.upload_image | img_url: '100x' }}" alt=""/>
+  
+</div>
+
+{% endif %}
+
 
 {% schema %}
 {
 	"name": "Announcement Bar",
 	"settings": [
-        {
+		{
           "type": "checkbox",
           "id": "show_announcement",
           "label": "Show announcement",
-          "default": false
-        }
-
+          "default": true
+        },
+        {
+			"type": "text",
+			"id": "a_text",
+			"label": "Heading",
+			"default": "Please enter a heading or text"
+        },
+		{
+			"type": "range",
+			"id": "font_size",
+			"min": 10,
+			"max": 20,
+			"step": 1,
+			"unit": "px",
+			"label": "Font Size",
+			"default": 16
+		},
+		{
+			"type": "range",
+			"id": "bg_padding",
+			"min": 5,
+			"max": 15,
+			"step": 1,
+			"unit": "px",
+			"label": "Set Padding",
+			"default": 10
+		},
+		{
+			"type": "color",
+			"id": "font_color",
+			"label": "Choose a color",
+			"default": "#fff"
+		},
+		{
+			"type": "color_background",
+			"id": "background",
+			"label": "Background Color",
+			"default": "linear-gradient(#ffffff, #000000)"
+		},
+		{
+			"type": "radio",
+			"id": "alignment",
+			"label": "Text Alignment",
+			"options": [
+				{
+					"value": "left",
+					"label": "Left"
+				},
+				{
+					"value": "center",
+					"label": "Center"
+				},
+				{
+					"value": "right",
+					"label": "Right"
+				}
+			],
+			"default": "center"
+		},
+		{
+			"type": "html",
+			"id": "show_html",
+			"label": "Write Custom HTML Code"
+		},
+		{
+			"type": "image_picker",
+			"id": "upload_image",
+			"label": "Upload a Image",
+			"info": "Image Size will be 100x100px"
+		}
 	]
 }
 {% endschema %}
